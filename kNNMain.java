@@ -24,27 +24,36 @@ public class kNNMain{
 	System.out.println(Flower);
 	
     //TASK 2:Use the DataSet class to split the fullDataSet into Training and Held Out Test Dataset
-	List<DataPoint> IrisTest = DataSet.getTestSet(Iris_Data, 0.9);
-	List<DataPoint> IrisTraining = DataSet.getTrainingSet(Iris_Data,0.1);
-	
-	//DataSet Iris_Training = new DataSet();
-	//DataSet Iris_Test = new DataSet();
+	List<DataPoint> Test = DataSet.getTestSet(Iris_Data, 0.1);
+	List<DataPoint> Training = DataSet.getTrainingSet(Iris_Data,0.9);
 	
 	
-    // TASK 4: write a new method in DataSet.java which takes as arguments two DataPoint objects,
-    // and returns the Euclidean distance between those two points (as a double)
+	DataPoint IEucOne = Iris_Data.get(3);
+	DataPoint IEucTwo = Iris_Data.get(5);
+	double Euc_Dist  = DataSet.distanceEuclid(IEucOne,IEucTwo);
 	
-	
-	
+	System.out.println(Euc_Dist);
+
     // TASK 5: Use the KNNClassifier class to determine the k nearest neighbors to a given DataPoint,
     // and make a print a predicted target label
-	
+	KNNClassifier ClassTest = new KNNClassifier(5);
+	System.out.println("The predicted class is: " + ClassTest.predict( Test, IrisPoint));
 	
 	
     // TASK 6: loop over the datapoints in the held out test set, and make predictions for Each
     // point based on nearest neighbors in training set. Calculate accuracy of model.
-
-
+	
+	int Correct=0;
+	for(int i=0; i<Test.size();i++){
+		DataPoint Point = Test.get(i);
+		String prediction = ClassTest.predict(Training, Point);
+		
+		if(Point.getLabel().equals(prediction)){
+			Correct++;
+		}
+	}
+	double Percentage = 100. * ( ( (double)(Correct) ) / ( (double)(Test.size()) ) ) ;
+	System.out.println("The percent accurate" +Percentage+"%");
   }
 
 }
