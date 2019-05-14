@@ -14,10 +14,10 @@ The original  results are after 1000 loops:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The number of neighbours is: 5
   
-Using the printLabelFrequencies method, the datasets are separated as roughly 65% benign and 35% malignant. Using this information a sensible baseline would be that 35% of our results are malignant. 
+Using the printLabelFrequencies method, the datasets are separated as roughly 65% benign and 35% malignant. Using this information a sensible baseline would be that 35% of our results are malignant AND 65% are benign. If we randomly assumed the entire data set were malignant our accuracy would be 35%, and consequently if we assumed benign our accuracy would be 65%.
 
 ## Analysis of different error types
-A false positive is a result from a test that is incorrect. In this case a false positive would be a malignant result when it is in fact bening. 
+A false positive is a result from a test that is incorrect. In this case a false positive would be a malignant result when it is in fact benign. 
 
 A false negative is a wrong result indicating that someone does not have a condition. In this case, a benign result in a malignant tumor.
 
@@ -37,6 +37,6 @@ For 7 Neighbours:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The number of neighbours is: 7
 
-Going above 5 neighbours lowers the average accuracy, choosing 3 neighbours increases the mean accuracy by 0.03. As the number increases the accuracy decreases. However, going below 3, which seems somewht ridiculous to do, lowers the accuracy. 
+Going above 5 neighbours lowers the average accuracy, choosing 3 neighbours increases the mean accuracy by 0.03. As the number increases the accuracy decreases. However, going below 3, which seems somewht ridiculous to do, lowers the accuracy. When increasing k the precision keeps increasing, however the recall decreases. 
 
 
