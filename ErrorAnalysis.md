@@ -21,23 +21,7 @@ A false positive is a result from a test that is incorrect. In this case a false
 
 A false negative is a wrong result indicating that someone does not have a condition. In this case, a benign result in a malignant tumor.
 
-When changing the number of neighbous the results are as follows: 
-
-For 3 Neighbours:
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The mean is: 96.94682926829314%
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The standard deviation is: 1.2144958953004221
-
-For 7 Neighbours:
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The mean is: 96.8326829268295%
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The standard deviation is: 1.2382988697204038
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The number of neighbours is: 7
-
-The Recall is taking the number of true negatives divided by the 
+The Precision identifies the percentage of correctly predicted malignant over the total amount of predicted malignant individuals. Recall finds the correctly predicted malignant over the actual amount of malignant individuals.
 
 Going above 5 neighbours lowers the average accuracy, choosing 3 neighbours increases the mean accuracy by 0.03. As the number increases the accuracy decreases. However, going below 3, which seems somewht ridiculous to do, lowers the accuracy. When increasing k the precision keeps increasing, however the recall decreases.
 
