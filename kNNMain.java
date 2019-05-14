@@ -2,77 +2,116 @@ import java.util.List;
 import java.io.FileNotFoundException;
 import java.util.Arrays;
 
-
-
 public class kNNMain{
 
   public static void main(String... args) throws FileNotFoundException{
+	  
+	int max = 1000;  
+	double [] accuracy = new double [max];
+	double [] recall = new double [max]; 
+	double [] precision = new double [max]; 
 	
-	double[] accuracy=new double[1000];
-	int Nbr=5;
-	int maxRuns=1000;
-	
-	for(int j=0; j<maxRuns;j++){
     // TASK 1: Use command line arguments to point DataSet.readDataSet method to
     // the desired file. Choose a given DataPoint, and print its features and label
+   for (int j = 0; j < max; j++)
+	{ 
 	String PATH_TO_DATA = args[0];
-	
-	List<DataPoint> List_Data = DataSet.readDataSet(PATH_TO_DATA);
-	DataPoint dataPoint = List_Data.get(5);
+	List<DataPoint> IrisList = DataSet.readDataSet(PATH_TO_DATA);
 	/*
-	double[] values = dataPoint.getX();
-	String Label = dataPoint.getLabel();
+	//DataPoint IrisPoint = IrisList.get(5);
+	//double [] values = IrisPoint.getX();
+	//String label = IrisPoint.getLabel();
 	
-	
-	for(int i=0; i<values.length; i++){
-		System.out.println(values[i]);
+	//for(int i = 0; i < values.length; i++)
+	{
+		//System.out.println(values[i]);
 	}
-	System.out.println(Label);
-	*/
+	
+	//System.out.println(label);
 	
     //TASK 2:Use the DataSet class to split the fullDataSet into Training and Held Out Test Dataset
-	List<DataPoint> Test = DataSet.getTestSet(List_Data, 0.1);
-	List<DataPoint> Training = DataSet.getTrainingSet(List_Data,0.9);
+	*/
+	List<DataPoint> HeldOut = DataSet.getTestSet(IrisList, 0.30);
+	List<DataPoint> Training = DataSet.getTrainingSet(IrisList, 0.70);
 	
-	/*
-	DataPoint IEucOne = List_Data.get(3);
-	DataPoint IEucTwo = List_Data.get(5);
-	double Euc_Dist  = DataSet.distanceEuclid(IEucOne,IEucTwo);
-	System.out.println(Euc_Dist);
+    /*// TASK 4: write a new method in DataSet.java which takes as arguments two DataPoint objects,
+    // and returns the Euclidean distance between those two points (as a double)
+	
+	double [] x = {0.0,0.0,0.0};
+	double [] y = {0.0,3.0,4.0};
+	
+	DataPoint Iris1 = new DataPoint ("dog", y);
+	DataPoint Iris2 = new DataPoint ("cat", x);
+	
+	double [] x1 = Iris1.getX();
+	double [] y1 = Iris2.getX();
+	
+	double distance = DataSet.distanceEuclid(Iris1, Iris2);
+	System.out.println(distance);
+	for (int i = 1; i < x.length; i++)
+	{
+		System.out.println(x[i] + "\t" + y[i]);
+	}
 	*/
 	
     // TASK 5: Use the KNNClassifier class to determine the k nearest neighbors to a given DataPoint,
-    // and make a print a predicted target label
-	KNNClassifier ClassTest = new KNNClassifier(Nbr);
-	//System.out.println("The predicted class is: " + ClassTest.predict( Test, dataPoint));
+    // and make it print a predicted target label
 	
+	KNNClassifier Test = new KNNClassifier(35);
+	//String label1 = Test.predict(IrisList, IrisPoint);
+	//System.out.println("The predicted class is " + label1);
 	
     // TASK 6: loop over the datapoints in the held out test set, and make predictions for Each
     // point based on nearest neighbors in training set. Calculate accuracy of model.
+
+	int ctr = 0;
+	int sum = 0;
+	int falseNegative = 0;
+	int falsePositive = 0;
 	
-	int Correct=0;
-	
-	for(int i=0; i<Test.size();i++){
-		DataPoint Point = Test.get(i);
-		String prediction = ClassTest.predict(Training, Point);
+	for (int i = 0; i < HeldOut.size(); i++)
+	{
+		DataPoint point = HeldOut.get(i);
+		String label2 = Test.predict(Training, point);
+		//System.out.println(label2 + "\t" + point.getLabel());
+		if (point.getLabel().equals(label2))
+		{
+			ctr++;
+		}
 		
-		if(Point.getLabel().equals(prediction)){
-			Correct++;
+		if (point.getLabel().equals("malignant") && label2.equals("malignant"))
+		{
+			sum++;
+		}
+		
+	    else if(point.getLabel().equals("malignant") && label2.equals("benign"))
+		{
+			falseNegative++;
+		}
+		
+		else if(point.getLabel().equals("benign") && label2.equals("malignant"))
+	    {
+			falsePositive++;
 		}
 	}
-	double Percentage = 100.*( ( (double)(Correct) ) / ( (double)(Test.size()) ) ) ;
-	//System.out.println("The percent accurate" +Percentage+"%");
-	
-	accuracy[j]=Percentage;
+	//System.out.println("The accuracy of the prediciton is " + (((double)(ctr))/((double)(HeldOut.size()))));
+	double percentage = 100.0 * ((double)(ctr))/((double)(HeldOut.size()));
+	double rec = ((double)(sum))/(double)(sum+falseNegative);
+	double prec = ((double)(sum))/(double)(sum+falsePositive);
+	accuracy [j] = percentage;
+	recall[j] = rec;
+	precision[j] = prec;
 	}
 	
-	double avg= mean(accuracy);
-	System.out.println("The mean is: "+avg+"%");
-	double std= standardDeviation(accuracy);
-	System.out.println("The standard deviation is: "+std);
-	System.out.println("The number of neighbours is: " + Nbr);
-	
-  }
+	double average = mean(accuracy);
+	double SD = standardDeviation(accuracy);
+	double Recall = mean(recall);
+	double Precision = mean(precision);
+	System.out.println("The mean is " + average); 
+	System.out.println("The Standard Deviation is " + SD);
+	System.out.println("The precision is " + Precision);
+    System.out.println("The recall is " + Recall);	
+}
 
   public static double mean(double[] arr){
     /*
@@ -100,5 +139,4 @@ public class kNNMain{
     }
     return (double)sum/arr.length;
   }
-
 }
