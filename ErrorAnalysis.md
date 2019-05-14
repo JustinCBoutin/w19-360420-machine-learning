@@ -21,8 +21,9 @@ A false positive is a result from a test that is incorrect. In this case a false
 
 A false negative is a wrong result indicating that someone does not have a condition. In this case, a benign result in a malignant tumor.
 
+If we assume all to be malignant, the recall would be 100% (or 1) and the precision would be 35% : This is our baseline. You cannot assume they are all benign since there would be nothing to do the division with for both recall and precision.
 The Precision identifies the percentage of correctly predicted malignant over the total amount of predicted malignant individuals. Recall finds the correctly predicted malignant over the actual amount of malignant individuals.
 
-Going above 5 neighbours lowers the average accuracy, choosing 3 neighbours increases the mean accuracy by 0.03. As the number increases the accuracy decreases. However, going below 3, which seems somewht ridiculous to do, lowers the accuracy. When increasing k the precision keeps increasing, however the recall decreases.
+Going above 5 neighbours lowers the average accuracy, choosing 3 neighbours increases the mean accuracy by 0.03. As the number increases the accuracy decreases. However, going below 3, which seems somewhat ridiculous to do, lowers the accuracy. When increasing k the precision keeps increasing, however the recall decreases.
 
 
