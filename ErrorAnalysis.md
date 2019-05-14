@@ -37,6 +37,8 @@ For 7 Neighbours:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The number of neighbours is: 7
 
+The Recall is taking the number of true negatives divided by the 
+
 Going above 5 neighbours lowers the average accuracy, choosing 3 neighbours increases the mean accuracy by 0.03. As the number increases the accuracy decreases. However, going below 3, which seems somewht ridiculous to do, lowers the accuracy. When increasing k the precision keeps increasing, however the recall decreases. 
 
 
