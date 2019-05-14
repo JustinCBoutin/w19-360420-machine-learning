@@ -8,11 +8,11 @@ We get a different accuracy each time because of the method collections.shuffle.
 
 The original  results are after 1000 loops:
 
-⋅⋅⋅The mean accuracy is: 96.91512195122% 
+  The mean accuracy is: 96.91512195122% 
 
-⋅⋅⋅The standard deviation is: 1.2318914931588334
+  The standard deviation is: 1.2318914931588334
 
-⋅⋅⋅The number of neighbours is: 5
+  The number of neighbours is: 5
   
 Using the printLabelFrequencies method, the datasets are separated as roughly 65% benign and 35% malignant. Using this information a sensible baseline would be that 35% of our results are malignant. 
 
